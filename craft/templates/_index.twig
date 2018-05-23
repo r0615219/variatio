@@ -1,0 +1,313 @@
+{% extends "_layout" %}
+
+{% block content %}
+
+
+{% include '_snippet/_global/_header' %}
+
+<!-- Our Work Section -->
+<div id="work" class="page">
+    <div class="container">
+        <!-- Title Page -->
+        <div class="row">
+            <div class="span12">
+                <div class="title-page">
+                    <h2 class="title">{{ entry.titelWork.hoofdTitel }}</h2>
+                    <h3 class="title-description">{{ entry.titelWork.subText }}</h3>
+                </div>
+            </div>
+        </div>
+        <!-- End Title Page -->
+
+        <div class="span12">
+            <div class="row">
+                <section id="projects">
+                    <ul id="thumbs">
+
+                        {% for item in entry.spotlight %}
+                        <li class="item-thumbs span6 {{ item.imageType|length ? item.imageType.first().slug : 'none' }}">
+                            <!-- Fancybox - Gallery Enabled - Title - Full Image -->
+                            <a class="hover-wrap fancybox" data-fancybox-group="gallery" title="{{ item.title }}" href="{{ siteUrl }}{{ item.image.first().getUrl() }}">
+                                <span class="overlay-img"></span>
+                                <span class="overlay-img-thumb font-icon-resize-full"></span>
+                            </a>
+                            <!-- Thumb Image and Description -->
+                            <img src="{{ siteUrl }}{{ item.image.first().getUrl('mediaImage') }}"
+                            alt="{{ item.imageType|length ? item.imageType.first().title }}">
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </section>
+
+                <div class="div--center">
+                    <br>
+                    <a href="{{ craft.entries.section('photography').first().getUrl() }}" class="button button--large">
+                        {{ entry.portfolioButton }}
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Portfolio Projects -->
+</div>
+</div>
+<!-- End Our Work Section -->
+
+<!-- Services Section -->
+<div id="services" class="page-alternate">
+    <div class="container">
+        <!-- Title Page -->
+        <div class="row">
+            <div class="span12">
+                <div class="title-page">
+                    <h2 class="title">{{ entry.titelServices.hoofdTitel }}</h2>
+                    <h3 class="title-description">{{ entry.titelServices.subText }}</h3>
+                </div>
+            </div>
+        </div>
+        <!-- End Title Page -->
+
+        {{ entry.introServices }}
+        
+        <!-- People -->
+        <div class="row row--flex">
+
+            {% for item in craft.categories.group('services') %}
+            <!-- Start Profile -->
+            <div class="span4 profile card">
+                <div class="image-wrap">
+                    {% if item.image.first()|length %}
+                    <img src="{{ siteUrl }}{{ item.image.first().getUrl('serviceImage') }}" alt="{{ item.title }}">
+                    {% endif %}
+                </div>
+                <div class="text-wrap">
+                    <h3 class="profile-name div--center">{{ item.title }}</h3>
+                    <div class="profile-description">{{ item.body }}</div>
+                </div>
+            </div>
+            <!-- End Profile -->
+            {% endfor %}
+            
+        </div>
+        <!-- End People -->
+    </div>
+</div>
+<!-- End Services Section -->
+
+<!-- About Section -->
+<div id="about" class="page">
+    <div class="container">
+        <!-- Title Page -->
+        <div class="row">
+            <div class="span12">
+                <div class="title-page">
+                    <h2 class="title">{{ entry.titelAbout.hoofdTitel }}</h2>
+                    <h3 class="title-description">{{ entry.titelAbout.subText }}</h3>
+                </div>
+            </div>
+        </div>
+        <!-- End Title Page -->
+        
+        <!-- People -->
+        <div class="row">
+
+            <!-- Start Profile -->
+            {% for person in entry.person %}
+            {% if loop.length == 1 %}
+            <div class="span3"></div>
+            {% endif %}
+            <div class="span6 profile">
+                <div class="image-wrap">
+                    <img src="{{ siteUrl }}{{ person.image.first().getUrl('personImage') }}" alt="{{ person.naam }}">
+                </div>
+                <h3 class="profile-name">{{ person.naam }}</h3>
+                <div class="profile-description">{{ person.about }}</div>
+
+                <div class="social">
+                    <ul class="social-icons">
+                        {% if person.facebook|length %}
+                        <li><a href="{{ person.facebook }}"><i class="fab fa-facebook"></i></a></li>
+                        {% endif %}
+                        {% if person.instagram|length %}
+                        <li><a href="{{ person.instagram }}"><i class="fab fa-instagram"></i></a></li>
+                        {% endif %}
+                        {% if person.twitter|length %}
+                        <li><a href="{{ person.twitter }}"><i class="fab fa-twitter"></i></a></li>
+                        {% endif %}
+                        {% if person.linkedin|length %}
+                        <li><a href="{{ person.linkedin }}"><i class="fab fa-linkedin"></i></a></li>
+                        {% endif %}
+                        {% if person.youtube|length %}
+                        <li><a href="{{ person.youtube }}"><i class="fab fa-youtube"></i></a></li>
+                        {% endif %}
+                        {% if person.googlePlus|length %}
+                        <li><a href="{{ person.googlePlus }}"><i class="fab fa-google-plus"></i></a></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            {% if loop.length == 1 %}
+            <div class="span3"></div>
+            {% endif %}
+            {% endfor %}
+            
+        </div>
+        <!-- End People -->
+    </div>
+</div>
+<!-- End About Section -->
+
+{% if entry.testimonials|length %}
+<!-- End Testimonials Section -->
+<div id="testimonials" class="page-alternate">
+    <div class="container">
+        <!-- Title Page -->
+        <div class="row">
+            <div class="span12">
+                <div class="title-page">
+                    <h2 class="title">{{ entry.titelTestimonials.hoofdTitel }}</h2>
+                    <h3 class="title-description">{{ entry.titelTestimonials.subText }}</h3>
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Tabs -->
+        <div class="span12">
+
+            <div class="tabbable">
+
+                <ul class="nav nav-tabs" id="myTab">
+                    {% for t in entry.testimonials %}
+                    <li {% if loop.index == 1 %}class="active"{% endif %}><a href="#tab{{ loop.index }}" data-toggle="tab">{{ t.naam }}</a></li>
+                    {% endfor %}
+                </ul>
+
+                <div class="tab-content">
+                    {% for t in entry.testimonials %}
+                    <div class="tab-pane fade in {% if loop.index == 1 %}active{% endif %}" id="tab{{ loop.index }}">
+                        {{ t.bericht }}
+                    </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+        <!-- End Tabs -->
+
+    </div>
+</div>
+<!-- End Testimonials Section -->
+{% endif %}
+
+<!-- Contact Section -->
+<div id="contact" class="page">
+    <div class="container">
+        <!-- Title Page -->
+        <div class="row">
+            <div class="span12">
+                <div class="title-page">
+                    <h2 class="title">{{ entry.titelContact.hoofdTitel }}</h2>
+                    <h3 class="title-description">{{ entry.titelContact.subText }}</h3>
+                </div>
+            </div>
+        </div>
+        <!-- End Title Page -->
+
+        <!-- Contact Form -->
+        <div class="row">
+           <div class="span9">
+
+               <form id="contact-form" class="contact-form" action="#">
+                {{ getCsrfInput() }}
+                <p class="contact-name">
+                  <input id="contact_name" type="text" placeholder="Naam" value="" name="name" />
+              </p>
+              <p class="contact-email">
+               <input id="contact_email" type="text" placeholder="Email" value="" name="email" />
+           </p>
+           <p class="contact-message">
+               <textarea id="contact_message" placeholder="Bericht" name="message" rows="15" cols="40"></textarea>
+           </p>
+
+           <div id="response"></div>
+
+           <p class="contact-submit">
+               <a id="contact-submit" class="submit" href="#">Send</a>
+           </p>
+       </form>
+
+   </div>
+
+   <div class="span3">
+       <div class="contact-details">
+          <h3>Contact Details</h3>
+          <ul>
+            {% if entry.contactInfo.mail|length %}
+            <li><a href="MAILTO:{{ entry.contactInfo.mail }}">
+                <span class="font-icon-email_2"></span> &nbsp; {{ entry.contactInfo.mail }}
+            </a>
+        </li>
+        {% endif %}
+        {% if entry.contactInfo.phone|length %}
+        <li><a href="tel:{{ entry.contactInfo.phone }}">
+            <span class="font-icon-phone"></span> &nbsp; {{ entry.contactInfo.phone }}
+        </a>
+    </li>
+    {% endif %}
+    {% if entry.contactInfo.address|length %}
+    <li>
+        <a target="_blank" href="https://www.google.be/maps/place/Variatio+bvba+-+fotografie/@50.9318933,4.4912824,17z/data=!3m1!4b1!4m5!3m4!1s0x47c3e766d00c9ff7:0x93b9076bd7edb756!8m2!3d50.9318933!4d4.4934711">
+            <span class="font-icon-map-marker-2"></span> &nbsp; 
+            {{ entry.contactInfo.address }}
+        </a>
+    </li>
+    {% endif %}
+    {% if entry.contactInfo.btw|length %}
+    <li><span class="font-icon-file"></span> &nbsp;  {{ entry.contactInfo.btw }}</li>
+    {% endif %}
+    <li>
+        {% if entry.contactInfo.facebook|length %}
+        <a class="social-icon" href="{{ entry.contactInfo.facebook }}" title="Follow Me us Facebook" target="_blank">
+            <i class="fab fa-facebook-square"></i>
+        </a> &nbsp;
+        {% endif %}
+        {% if entry.contactInfo.instagram|length %}
+        <a class="social-icon" href="{{ entry.contactInfo.instagram }}" title="Follow Me us Instagram" target="_blank">
+            <i class="fab fa-instagram"></i> 
+        </a> &nbsp;
+        {% endif %}
+        {% if entry.contactInfo.twitter|length %}
+        <a class="social-icon" href="{{ entry.contactInfo.twitter }}" title="Follow Me us Twitter" target="_blank">
+            <i class="fab fa-twitter"></i>
+        </a> &nbsp;
+        {% endif %}
+        {% if entry.contactInfo.linkedin|length %}
+        <a class="social-icon" href="{{ entry.contactInfo.linkedin }}" title="Follow Me us Linkedin" target="_blank">
+            <i class="fab fa-linkedin"></i>
+        </a>
+        {% endif %}
+    </ul>
+</div>
+</div>
+</div>
+<!-- End Contact Form -->
+
+<script src='https://maps.googleapis.com/maps/api/js?v=3.exp&key=AIzaSyDp0k6-b0xB9q9rix-DBPXuQ7TZRKUzPqw'></script>
+<div style='overflow:hidden;height:550px;width:100%;margin-top:50px'>
+    <div id='gmap_canvas' style='height:550px;width:100%;'></div>
+    <style>#gmap_canvas img{max-width:none!important;background:none!important}</style>
+</div>
+<script type='text/javascript'>
+var pinImage = new google.maps.MarkerImage("http://www.googlemapsmarkers.com/v1/B7904F/");
+function init_map(){var myOptions = {zoom:14,center:new google.maps.LatLng(50.9318933,4.493471099999965),mapTypeId: google.maps.MapTypeId.ROADMAP,key:'AIzaSyDp0k6-b0xB9q9rix-DBPXuQ7TZRKUzPqw'};map = new google.maps.Map(document.getElementById('gmap_canvas'), myOptions);marker = new google.maps.Marker({map: map,icon: pinImage,position: new google.maps.LatLng(50.9318933,4.493471099999965)});infowindow = new google.maps.InfoWindow({content:'<strong>Variatio bvba</strong><br>Driesstraat 29, 1820 Perk<br>'});google.maps.event.addListener(marker, 'click', function(){infowindow.open(map,marker);});infowindow.open(map,marker);}google.maps.event.addDomListener(window, 'load', init_map);
+</script>
+
+</div>
+</div>
+<!-- End Contact Section -->
+
+{% include '_snippet/_global/_footer' %}
+
+
+{% endblock %}

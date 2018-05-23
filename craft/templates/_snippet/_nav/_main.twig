@@ -1,0 +1,29 @@
+<!-- Header -->
+<header>
+    <div class="sticky-nav">
+    	<a id="mobile-nav" class="menu-nav" href="#menu-nav"></a>
+        
+        <div id="logo">
+        	<a id="goUp" {% if entry.section.handle == 'home' %}href="#home-slider"{% else %}href="{{ siteUrl }}"{% endif %} title="VARIATIO">VARIATIO</a>
+        </div>
+        
+        {% if entry.section.handle == 'home' %}
+        <nav id="menu">
+        	<ul id="menu-nav">
+            	<li class="current"><a href="#home-slider" class="ext">Home</a></li>
+                <li><a href="#work" class="ext">Fotografie</a></li>
+                <li><a href="#services" class="ext">Diensten</a></li>
+                <li><a href="#about" class="ext">Over ons</a></li>
+                <li><a href="#testimonials" class="ext">Onze klanten</a></li>
+                <li><a href="#contact" class="ext">Contact</a></li>
+            </ul>
+        </nav>
+        {% else %}
+        <nav id="menu">
+            <a href="{{ siteUrl }}" class="ext menu--back"><i class="fas fa-long-arrow-alt-left"></i> &nbsp; Back</a>
+        </nav>
+        {% endif %}
+        
+    </div>
+</header>
+<!-- End Header -->

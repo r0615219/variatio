@@ -1,0 +1,29 @@
+	<!-- Homepage Slider -->
+    <style type="text/css">
+    #home-slider .slide-content {
+         background: url('{{ siteUrl }}{{ entry.logo.first().getUrl() }}');
+         background-repeat: no-repeat;
+         background-size: contain;
+    }
+    </style>
+<div id="home-slider">	
+    <div class="overlay">
+    </div>
+
+    <div class="slider-text">
+        {% if entry.logo|length %}
+    	   <div id="slidecaption"></div>
+        {% endif %}
+    </div>   
+	
+	<div class="control-nav">
+        <a id="prevslide" class="load-item"><i class="font-icon-arrow-simple-left"></i></a>
+        <a id="nextslide" class="load-item"><i class="font-icon-arrow-simple-right"></i></a>
+        <ul id="slide-list"></ul>
+        
+        <a id="nextsection" href="#services"><i class="font-icon-arrow-simple-down"></i></a>
+    </div>
+</div>
+<!-- End Homepage Slider -->
+
+{% include '_snippet/_nav/_main' %}
